@@ -1,0 +1,19 @@
+{
+  "name": "mi-nuevo-proyecto",
+  "version": "1.0.0",
+  "main": " app/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon app/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "mon": "^0.0.8",
+    "node": "^20.19.5"
+  }
+}
