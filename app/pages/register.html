@@ -8,15 +8,27 @@
     <title>Registro</title>
 </head>
 <body>
-    <h1>Registro</h1>
-    <form action="/login" method="POST">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-        <br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-        <br>
-        <button type="submit">Login</button>
-    </form>
+    <main class="login-container">
+        <h2>Crear cuenta</h2>
+        <p>Crea tu cuenta para entrar al área de administración</p>
+        <form id="register">
+            <div class="input-group">
+                <label for="username" class="sr-only">User</label>
+                <input type="text" id="username" name="username" placeholder="Nombre de usuario" required>
+            </div>
+            <div class="input-group">
+                <label for="email" class="sr-only">Correo electrónico</label>
+                <input type="email" id="email" name="email" placeholder="Correo electronico" required>
+            </div>
+            <div class="input-group">
+                <label for="password" class="sr-only">Password</label>
+                <input type="password" id="password" name="password" placeholder="Contraseña" required>
+            </div>
+            <button type="submit">Iniciar sesión</button>
+            <p class="error escondido">Error al registrarse</p>
+        </form>
+        <p class="signup-link">¿Ya estás registrado? <a href="#">Inicia sesión aquí</a></p>
+        <p class="signup-link">¿Olvidaste tu contraseña? <a href="#">Restablecer contraseña</a></p>
+    </main>
 </body>
 </html>

@@ -1,39 +1,27 @@
-import Express from 'express';
-//Fix para _dirname
+import  express  from "express";
+import cookieParser from 'cookie-parser';
+//Fix para __direname
 import path from 'path';
-import { fileURLToPath } from 'url';
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-//-----------------
-
+import {fileURLToPath} from 'url';
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+import {methods as authentication} from "./controllers/authentication.controller.js"
+import {methods as authorization} from "./middlewares/authorization.js";
 
 //Server
-const app = Express();
-const PORT = 3000;
+const app = express();
+app.set("port",4000);
+app.listen(app.get("port"));
+console.log("Servidor corriendo en puerto",app.get("port"));
 
-app.use(Express.static(path.join(__dirname, 'public')));
+//Configuración
+app.use(express.static(__dirname + "/public"));
+app.use(express.json());
+app.use(cookieParser())
 
-//Iniciar servidor  
-app.listen(PORT, () => {
-  console.log("Servidor corriendo en puerto", PORT);
-});
-
-//Configuración de la App
-app.use(Express.static(__dirname + '/public'));
-
-// Ruta para la página principal
-app.get('/', (req, res) => {
-    res.redirect('/login');
-});
 
 //Rutas
-app.get("/login", (req, res) => {
-  res.sendFile("pages/login.html", { root: __dirname });
-});
-app.get("/register", (req, res) => {
-  res.sendFile("pages/register.html", { root: __dirname });
-});
-
-app.get("/home", (req, res) => {
-  res.sendFile("pages/home.html", { root: __dirname });
-});
+app.get("/",authorization.soloPublico, (req,res)=> res.sendFile(__dirname + "/pages/login.html"));
+app.get("/register",authorization.soloPublico,(req,res)=> res.sendFile(__dirname + "/pages/register.html"));
+app.get("/admin",authorization.soloAdmin,(req,res)=> res.sendFile(__dirname + "/pages/admin/admin.html"));
+app.post("/api/login",authentication.login);
+app.post("/api/register",authentication.register);

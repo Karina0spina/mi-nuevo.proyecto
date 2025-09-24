@@ -1,6 +1,5 @@
 body {
     margin: 0;
-    background-color: red;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
     justify-content: center;
@@ -8,10 +7,119 @@ body {
     height: 100vh;
 }
 
-.login-container {
-    width: 500px;
-    background-color: #a71919;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+/* Contenedor del video */
+.video-container {
+    position: fixed; /* Lo fija en la pantalla */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Oculta cualquier parte del video que se salga */
+    z-index: -1; /* Lo envía al fondo, detrás de todo el contenido */
 }
+
+/* Estilos del video */
+#video-fondo {
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centra el video */
+}
+
+/* Overlay semitransparente */
+.video-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4); /* Capa oscura semitransparente */
+}
+
+
+
+.login-container {
+    position: relative; /* Para que quede encima del video */
+    z-index: 1; /* Asegura que se vea por encima del video */
+    width: 500px;
+    padding: 50px;
+    border-radius: 10px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.85);
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Y para los inputs, usa la clase .input-group */
+.input-group {
+    margin-bottom: 20px; /* Para separar los grupos de inputs */
+}
+ 
+
+form {
+    display:flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+}
+
+form + p, form p {
+    text-align: center;
+}
+
+.signup-link{
+    text-align: center ;
+}
+button, input {
+    font-size: large;
+    padding: 15px 0; 
+    width: 100%; 
+    border: unset;
+    border-radius: 4px;
+}
+input {
+ background-color: #ffffff;
+    color: #333;
+    border: 1px solid #ddd;
+    outline: none;
+    transition: border-color 0.3s ease;   
+}
+
+input:focus {
+    border-color: #b137a1; /* El borde se vuelve morado al enfocar */
+}
+button {
+    background-color: #b137a1;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #8c2a82; 
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+    margin-top: 10px;
+}
+.escondido {
+    display: none;
+}
+.sr-only{
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+
