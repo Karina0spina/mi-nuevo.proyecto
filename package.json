@@ -1,4 +1,46 @@
-{
+import express from 'express';
+import session from 'express-session';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Middleware
+app.use(express.json());
+app.use(session({
+    secret: 'secreto-cambiar-en-produccion',
+    resave: false,
+    saveUninitialized: false
+}));
+
+// Servir archivos estáticos
+app.use('/public', express.static(join(__dirname, '../app/public')));
+
+// Ruta principal del admin
+app.get('/admin', (req, res) => {
+    res.sendFile(join(__dirname, '../app/pages/admin/admin.html'));
+});
+
+// Ruta de login
+app.post('/admin/login', (req, res) => {
+    const { email, password } = req.body;
+    
+    // DEMO: Cambiar estas credenciales en producción
+    if (email === "admin@example.com" && password === "123456") {
+        req.session.isAdmin = true;
+        res.json({ redirect: '/admin' });
+    } else {
+        res.status(401).send('Credenciales inválidas');
+    }
+});
+
+app.listen(PORT, () => {
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+});{
   "name": "mi-nuevo-proyecto",
   "version": "1.0.0",
   "main": " app/index.js",
@@ -9,11 +51,20 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "��#\u0000 \u0000P\u0000r\u0000o\u0000y\u0000e\u0000c\u0000t\u0000o\u0000-\u0000G\u0000Y\u0000M\u0000-\u0000G\u0000i\u0000r\u0000l\u0000s\u0000\r\u0000 \u0000",
   "dependencies": {
     "dotenv": "^17.2.2",
     "express": "^5.1.0",
+    "express-session": "^1.18.2",
     "mon": "^0.0.8",
     "node": "^20.19.5"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Karina0spina/mi-nuevo.proyecto.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Karina0spina/mi-nuevo.proyecto/issues"
+  },
+  "homepage": "https://github.com/Karina0spina/mi-nuevo.proyecto#readme"
 }
